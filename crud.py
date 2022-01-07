@@ -35,6 +35,9 @@ def get_users():
 def get_user_by_id(id):
     return User.query.filter(User.user_id == id).one()
 
+def get_user_by_email(email):
+    return User.query.filter(User.email == email).one()
+
 def create_rating(user, movie, rating):
     """Create and return a new movie."""
     rating = Rating(user=user, movie=movie, score=rating)

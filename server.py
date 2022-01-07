@@ -36,6 +36,18 @@ def show_users():
     users = crud.get_users()
     return render_template('all_users.html', users=users)
 
+@app.route('/users', methods=['POST'])
+def register_user():
+    """Create new user."""
+    email = request.form.get("email")
+    password = request.form.get("password")
+    if crud.get_user_by_email(email):
+        flash("This email already exists. Please try again.")
+    else:
+        crud.create_user(email, password)
+        flash("Account created successfully. Please log in.")
+    return redirect("/")
+
 @app.route('/user/<int:id>')
 def show_user_profile(id):
     """View details for a specific movie."""
